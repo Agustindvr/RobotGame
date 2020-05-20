@@ -1,0 +1,26 @@
+data = [
+  {
+    "name":"Bronce Sword", 
+    "damage":6,
+    "price":200,
+    "id":0
+  },
+  {
+    "name":"Silver Sword", 
+    "damage":12,
+    "price":400,
+    "id":1
+  },
+  {
+    "name":"Gold Sword", 
+    "damage":18,
+    "price":600,
+    "id":2
+  },
+  {
+    "name":"Platinum Sword", 
+    "damage":24,
+    "price":800,
+    "id":3
+  }
+];

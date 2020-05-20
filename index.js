@@ -76,7 +76,7 @@ class Robot{
 
 class Player{
 	id = 1;
-	name = "conejo";
+	name = "Conejo";
 	attackDmg = 2;
 	gold = 0;
 
@@ -85,11 +85,13 @@ class Player{
   }
 
   setGold(gold){
-    this.gold = gold;
+  	var newGold = this.gold + gold;	
+		this.gold = newGold;
   }
 
   setAttack(attackDmg){
-    this.attackDmg = attack;
+  	var newAttack = this.attackDmg + attackDmg;
+    this.attackDmg = newAttack;
   }
 
   attack(Robot){
@@ -98,22 +100,67 @@ class Player{
 
 }
 
+class GameStatus{
+	lastRobotKilled = null;
+	getLastRobot(){
+    return this.lastRobotKilled;
+  }
+
+  setLastRobotKilled(id){
+    if(id > this.getLastRobot() || this.getLastRobot() === null)
+      this.lastRobotKilled = id;
+  }
+}
+
+class Weapons {
+  name;
+  price;
+  attackDmg = 2;
+
+  getWeaponsList(){
+    var weaponsData = data;
+    return weaponsData;
+  }    
+
+  createWeaponsList(){
+    var weponsList = this.getWeaponsList();
+    weponsList.forEach( function(value, index) {
+
+      var theDiv = document.getElementById("weapons");
+      var innerDiv = document.createElement('div');
+      innerDiv.className = 'weapon-' + index;
+      innerDiv.innerHTML = 
+      '<div class="containerInnWeapon"><div><img src="https://via.placeholder.com/60.png/ffb74d/000000?text=weapon" /></div><div class="generalInfoWeapon"><h5>' + value.name + 
+      '</h5><div><b>Price: </b>'+value.price+
+      '</div><div><b>Attack: </b>+'+value.damage+
+      '</div></div><button data-price='+value.price+' data-damage='+value.damage+' onClick="buyWeapon(this)" class="buyButton btn">Buy</button></div>';
+
+      theDiv.appendChild(innerDiv);
+    });
+  }
+}
+
 var robot = new Robot();
 var player = new Player();
+var gameStatus = new GameStatus();
+var weapons = new Weapons();
+  
+  weapons.createWeaponsList();
 
-var intervalMiliSeconds = 2000;
+var intervalMiliSeconds = 60;
 	setInterval(() => { 
+		updateValues(robot, player);
+	//player.attack(robot);	
+		robotIsDead();
+		hideShowNextPrevButtons();
+		
+	}, intervalMiliSeconds);
+
+	function updateValues(robot, player){
 		updateRobotData(robot);
 		playerData(player);
-		player.attack(robot);
-
-		if(robot.isDead()){
-			createNewRobot("next");
-		}
-
-	console.log(robot);
-}, intervalMiliSeconds);
-
+	}
+	
 	function createNewRobot(position){
     let id = robot.id;
     let actualRobotInitialHp = robot.initialHp;
@@ -144,10 +191,16 @@ var intervalMiliSeconds = 2000;
 
   	playerName.innerHTML = '<h4> ' + player.name + '</h4>';
   	playerAttack.innerHTML = player.attackDmg;
-  	playerGold.innerHTML = player.gold;
-  	console.log(player)
+  	playerGold.innerHTML = player.gold;  	
+	}
 
-  }
+	document.onkeydown = function (e) {
+    var keyCode = e.keyCode;
+    if(keyCode == 65) {
+    	console.log(player);
+			player.attack(robot);
+    }
+	};
 
   function prev(){
   	createNewRobot("prev");
@@ -155,4 +208,29 @@ var intervalMiliSeconds = 2000;
 
   function next(){
   	createNewRobot("next");
+  }
+
+  function hideShowNextPrevButtons(){
+    var next = document.getElementById('next');
+    var prev = document.getElementById('prev');
+
+    if(robot.id === 0){
+      prev.disabled = true;
+    }else{
+      prev.disabled = false;
+    }
+
+    if(gameStatus.getLastRobot() < robot.id || gameStatus.getLastRobot() === null){
+      next.disabled = true;
+    }else{
+      next.disabled = false;
+    }
+  }
+
+  function robotIsDead(){  
+    if(robot.isDead()){
+    	gameStatus.setLastRobotKilled(robot.id);
+			player.setGold(robot.gold);
+			createNewRobot('actual');
+		}
   }

@@ -1,13 +1,10 @@
 <html>
-
 	<head>
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	  <script src="index.js"></script>
+	  <script type="text/javascript" src="weapons.json"></script>
+	  <link rel="stylesheet" type="text/css" href="design.css">
 	</head>
 
 	<body>
-	  
 	  <div class="container">
 	    <h1 class="generalTitle">Robot Game</h1>
 
@@ -15,7 +12,7 @@
 	      <button class="btn controlActionButton" id="prev" onClick=prev();>Prev</button>
 	      <button class="btn controlActionButton" id="next" onClick=next();>Next</button>
 	    </div>
-
+	    
 	    <div id="containerGameData">
 	      <div id="robotData">
 	        <div id="robotName" class="robotNameValue"></div>
@@ -28,15 +25,16 @@
 	      <div id="playerData">
 	        <div class="containerGeneralDataPlayer">
 	          <div id="playerName" class="playerNameValue"></div>
-	          <div id="attack"><h6>Attack: <span class="attackValue"></span></h6></div>
-	          <div id="gold"><h6>Gold: <span class="goldValue"></span></h6></div>
+	          <div id="attack">Attack: <span class="attackValue"></span></div>
+	          <div id="gold">Gold: <span class="goldValue"></span></div>
 	        </div>
 	        <div id="weapons"></div>
 	      </div>
-	    </div>  
 
+	  	</div>
 	  </div>
 
 </body>
+ <script src="index.js"></script>
 
 </html>
