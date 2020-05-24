@@ -1,36 +1,44 @@
 <html>
 	<head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 	  <script type="text/javascript" src="weapons.json"></script>
+
 	  <link rel="stylesheet" type="text/css" href="design.css">
 	</head>
 
 	<body>
 	  <div class="container">
-	    <h1 class="generalTitle">Robot Game</h1>
+	  	<div class="row">
+		    <h1 class="generalTitle">Robot Game</h1>
 
-	    <div id="containerControls">
-	      <button class="btn controlActionButton" id="prev" onClick=prev();>Prev</button>
-	      <button class="btn controlActionButton" id="next" onClick=next();>Next</button>
-	    </div>
-	    
-	    <div id="containerGameData">
-	      <div id="robotData">
-	        <div id="robotName" class="robotNameValue"></div>
-	        <div class="robotImageContainer" id="robotImageContainer"><img class="robotImage" /></div>
-	        <div id="robotHp"><span class="robotHpValue"></span> HP left</div>
-	        <div id="robotGold"><span class="robotGoldValue"></span> Gold</div>
-	        <div id="timeLeft"></div>
-	      </div>
+		    <div id="containerControls">
+		      <button class="btn controlActionButton" id="prev" onClick=prev();>Prev</button>
+		      <button class="btn controlActionButton" id="next" onClick=next();>Next</button>
+		    </div>
+		    
+		    <div id="containerGameData">
+		      <div id="robotData" class="col s6">
+		        <div id="robotName" class="robotNameValue"></div>
+		        <div class="robotImageContainer" id="robotImageContainer"><img class="robotImage" /></div>
+		        <div id="robotHp"><span class="robotHpValue"></span> HP left</div>
+		        <div id="robotGold"><span class="robotGoldValue"></span> Gold</div>
+		        <div id="timeLeft"></div>
+		      </div>
 
-	      <div id="playerData">
-	        <div class="containerGeneralDataPlayer">
-	          <div id="playerName" class="playerNameValue"></div>
-	          <div id="attack">Attack: <span class="attackValue"></span></div>
-	          <div id="gold">Gold: <span class="goldValue"></span></div>
-	        </div>
-	        <div id="weapons"></div>
-	      </div>
+		      <div id="playerData" class="col s6">
+		        <div class="containerGeneralDataPlayer">
+		          <div id="playerName" class="playerNameValue"></div>
+		          <div id="attack">Attack: <span class="attackValue"></span></div>
+		          <div id="gold">Gold: <span class="goldValue"></span></div>
+		        </div>
+		        <div id="weapons"></div>
+		      </div>
 
+		  	</div>
 	  	</div>
 	  </div>
 

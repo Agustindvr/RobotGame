@@ -84,15 +84,13 @@ class Player{
     this.name = name;
   }
 
-  setGold(gold){
-  	var newGold = this.gold + gold;	
-		this.gold = newGold;
-  }
+  setGold(goldQty){
+      this.gold = goldQty;
+    }
 
   setAttack(attackDmg){
-  	var newAttack = this.attackDmg + attackDmg;
-    this.attackDmg = newAttack;
-  }
+      this.attackDmg = attackDmg;
+    }
 
   attack(Robot){
     Robot.hp = Robot.hp - this.attackDmg;
@@ -126,7 +124,7 @@ class Weapons {
     var weponsList = this.getWeaponsList();
     weponsList.forEach( function(value, index) {
 
-      var theDiv = document.getElementById("weapons");
+      var weapons = document.getElementById("weapons");
       var innerDiv = document.createElement('div');
       innerDiv.className = 'weapon-' + index;
       innerDiv.innerHTML = 
@@ -135,7 +133,7 @@ class Weapons {
       '</div><div><b>Attack: </b>+'+value.damage+
       '</div></div><button data-price='+value.price+' data-damage='+value.damage+' onClick="buyWeapon(this)" class="buyButton btn">Buy</button></div>';
 
-      theDiv.appendChild(innerDiv);
+      weapons.appendChild(innerDiv);
     });
   }
 }
@@ -144,7 +142,8 @@ var robot = new Robot();
 var player = new Player();
 var gameStatus = new GameStatus();
 var weapons = new Weapons();
-  
+
+
   weapons.createWeaponsList();
 
 var intervalMiliSeconds = 60;
@@ -153,6 +152,7 @@ var intervalMiliSeconds = 60;
 	//player.attack(robot);	
 		robotIsDead();
 		hideShowNextPrevButtons();
+		hideShowWeaponButtons();
 		
 	}, intervalMiliSeconds);
 
@@ -184,12 +184,14 @@ var intervalMiliSeconds = 60;
     robotImage.src='https://robohash.org/' + robot.id;
   }
 
+  let nameUser = prompt('Por favor ingrese su nombre');
+
   function playerData(player){
   	var playerName = document.getElementsByClassName('playerNameValue')[0];
   	var playerAttack = document.getElementsByClassName('AttackValue')[0];
   	var playerGold = document.getElementsByClassName('GoldValue')[0];
 
-  	playerName.innerHTML = '<h4> ' + player.name + '</h4>';
+  	playerName.innerHTML = '<h4> ' + nameUser + '</h4>';
   	playerAttack.innerHTML = player.attackDmg;
   	playerGold.innerHTML = player.gold;  	
 	}
@@ -227,10 +229,29 @@ var intervalMiliSeconds = 60;
     }
   }
 
+  function buyWeapon(button){
+  	var price = parseInt(button.getAttribute("data-price"));
+  	var damage = parseInt(button.getAttribute("data-damage"));
+  	 player.setGold(player.gold - price);
+  	 player.setAttack(damage + player.attackDmg);
+  }
+
+  function hideShowWeaponButtons(){
+    var buttons = document.getElementsByClassName('buyButton');
+
+    Array.from(buttons).forEach((button) => {
+      if(player.gold >= button.getAttribute("data-price")){
+        button.disabled = false;
+      }else{
+        button.disabled = true;
+      }
+    });
+  }
+
   function robotIsDead(){  
     if(robot.isDead()){
     	gameStatus.setLastRobotKilled(robot.id);
-			player.setGold(robot.gold);
+			player.setGold(player.gold + robot.gold);
 			createNewRobot('actual');
 		}
   }
